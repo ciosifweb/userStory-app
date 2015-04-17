@@ -134,14 +134,18 @@ module.exports = function(app, express) {
 
 		.get(function(req, res) {
 
-			Story.find({creator: req.decoded.id}, function(err, story) {
+			Story.find({creator: req.decoded.id}, function(err, stories) {
 				if (err) {
 					res.send(err);
 					return;
 				}
-				res.json(story)
+				res.json(stories)
 			})
-		})
+		});
+
+		api.get('/me', function(req, res) {
+			res.json(req.decoded);
+		});
 
 	return api;
 };
